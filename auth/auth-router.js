@@ -25,8 +25,10 @@ router.post("/register", (req, res) => {
 
 router.post("/login", (req, res) => {
     let { username, password } = req.body;
+    //why do we have to destructure these?
     Users.findBy({ username })
       .first()
+      //not 100% where the first is coming from/why its necessary
       .then(user => {
         if (user && bcrypt.compareSync(password, user.password)) {
           res.status(200).json({ message: `Welcome ${user.username}!` });
